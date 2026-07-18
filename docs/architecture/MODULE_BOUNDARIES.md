@@ -6,7 +6,7 @@
 
 Будущие доменные модули: `organizations`, `identity`, `suppliers`, `procurement`, `catalog`, `pricing`, `labeling`, `inventory`, `sales`, `payments`, `shifts`, `expenses`, `analytics`, `exceptions`, `audit`.
 
-Bootstrap создаёт только структуру границ. Пустая граница не должна содержать доменные сущности, таблицы, API или заготовленные use cases.
+Техническая основа создала структуру границ. Первый срез наполнил только `identity` и `organizations`; остальные пустые границы не должны содержать доменные сущности, таблицы, API или заготовленные сценарии.
 
 ## Внутренняя форма модуля
 

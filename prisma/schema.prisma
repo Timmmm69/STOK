@@ -16,3 +16,142 @@ model HarnessState {
 
   @@map("_harness_state")
 }
+
+model User {
+  id                String                   @id @db.VarChar(128)
+  name              String                   @db.VarChar(160)
+  email             String                   @unique @db.VarChar(320)
+  emailVerified     Boolean                  @default(false) @map("email_verified")
+  image             String?                  @db.Text
+  createdAt         DateTime                 @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt         DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sessions          Session[]
+  accounts          Account[]
+  memberships       OrganizationMembership[]
+  organizationSetup OrganizationSetup?
+
+  @@map("auth_users")
+}
+
+model Session {
+  id        String   @id @db.VarChar(128)
+  expiresAt DateTime @map("expires_at") @db.Timestamptz(3)
+  token     String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  ipAddress String?  @map("ip_address") @db.VarChar(64)
+  userAgent String?  @map("user_agent") @db.Text
+  userId    String   @map("user_id") @db.VarChar(128)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("auth_sessions")
+}
+
+model Account {
+  id                    String    @id @db.VarChar(128)
+  accountId             String    @map("account_id") @db.VarChar(255)
+  providerId            String    @map("provider_id") @db.VarChar(64)
+  userId                String    @map("user_id") @db.VarChar(128)
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @map("access_token") @db.Text
+  refreshToken          String?   @map("refresh_token") @db.Text
+  idToken               String?   @map("id_token") @db.Text
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at") @db.Timestamptz(3)
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at") @db.Timestamptz(3)
+  scope                 String?   @db.Text
+  password              String?   @db.Text
+  createdAt             DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt             DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("auth_accounts")
+}
+
+model Verification {
+  id         String   @id @db.VarChar(128)
+  identifier String   @db.VarChar(320)
+  value      String   @db.Text
+  expiresAt  DateTime @map("expires_at") @db.Timestamptz(3)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([identifier])
+  @@map("auth_verifications")
+}
+
+enum OrganizationRole {
+  OWNER
+}
+
+enum MembershipStatus {
+  ACTIVE
+}
+
+enum StoreStatus {
+  ACTIVE
+}
+
+model Organization {
+  id              String                   @id @default(uuid()) @db.Uuid
+  name            String                   @db.VarChar(120)
+  defaultCurrency String                   @default("BYN") @map("default_currency") @db.Char(3)
+  defaultTimezone String                   @default("Europe/Minsk") @map("default_timezone") @db.VarChar(64)
+  locale          String                   @default("ru") @db.VarChar(16)
+  version         Int                      @default(1)
+  createdAt       DateTime                 @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt       DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(3)
+  memberships     OrganizationMembership[]
+  stores          Store[]
+  setup           OrganizationSetup?
+
+  @@map("organizations")
+}
+
+model OrganizationMembership {
+  id             String           @id @default(uuid()) @db.Uuid
+  organizationId String           @map("organization_id") @db.Uuid
+  userId         String           @map("user_id") @db.VarChar(128)
+  role           OrganizationRole @default(OWNER)
+  status         MembershipStatus @default(ACTIVE)
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt      DateTime         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, userId])
+  @@index([userId, status])
+  @@map("organization_memberships")
+}
+
+model Store {
+  id             String             @id @default(uuid()) @db.Uuid
+  organizationId String             @map("organization_id") @db.Uuid
+  name           String             @db.VarChar(120)
+  status         StoreStatus        @default(ACTIVE)
+  createdAt      DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt      DateTime           @updatedAt @map("updated_at") @db.Timestamptz(3)
+  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  setup          OrganizationSetup?
+
+  @@unique([organizationId, name])
+  @@index([organizationId, status])
+  @@map("stores")
+}
+
+model OrganizationSetup {
+  id                 String       @id @default(uuid()) @db.Uuid
+  userId             String       @unique @map("user_id") @db.VarChar(128)
+  organizationId     String       @unique @map("organization_id") @db.Uuid
+  storeId            String       @unique @map("store_id") @db.Uuid
+  idempotencyKey     String       @map("idempotency_key") @db.VarChar(128)
+  requestFingerprint String       @map("request_fingerprint") @db.Char(64)
+  createdAt          DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  user               User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  store              Store        @relation(fields: [storeId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, idempotencyKey])
+  @@map("organization_setups")
+}

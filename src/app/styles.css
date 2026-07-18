@@ -20,6 +20,155 @@ body {
   margin: 0;
 }
 
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 12% 18%, rgb(205 230 169 / 70%), transparent 34%),
+    radial-gradient(circle at 84% 74%, rgb(238 213 162 / 55%), transparent 32%), #f5f5ed;
+}
+
+.app-card {
+  width: min(720px, 100%);
+  padding: clamp(28px, 6vw, 54px);
+  border: 1px solid rgb(39 67 34 / 12%);
+  border-radius: 28px;
+  background: rgb(255 255 250 / 94%);
+  box-shadow: 0 28px 80px rgb(39 65 38 / 13%);
+}
+
+.auth-card {
+  width: min(560px, 100%);
+}
+
+.app-card-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.app-title {
+  font-size: clamp(2.2rem, 7vw, 4rem);
+}
+
+.app-lead {
+  max-width: 620px;
+  margin: 22px 0 32px;
+  color: #5d6a5e;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.action-stack,
+.setup-form {
+  display: grid;
+  gap: 14px;
+}
+
+.setup-form label {
+  font-weight: 750;
+}
+
+.setup-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #aab5a5;
+  border-radius: 12px;
+  color: #172117;
+  background: #fff;
+}
+
+.setup-form input:focus {
+  border-color: #315f32;
+  outline: 3px solid rgb(69 116 63 / 18%);
+}
+
+.primary-button {
+  min-height: 50px;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 760;
+  background: #315f32;
+  box-shadow: 0 10px 24px rgb(44 91 43 / 18%);
+}
+
+.text-button {
+  padding: 8px 0;
+  border: 0;
+  color: #496149;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.form-error {
+  margin: 0;
+  color: #9a2f23;
+  line-height: 1.45;
+}
+
+.privacy-note {
+  margin: 22px 0 0;
+  color: #778178;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.settings-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+
+.settings-list div {
+  padding: 16px;
+  border-radius: 16px;
+  background: #f0f3e9;
+}
+
+.settings-list dt {
+  margin-bottom: 6px;
+  color: #6b776b;
+  font-size: 0.78rem;
+}
+
+.settings-list dd {
+  margin: 0;
+  font-weight: 750;
+}
+
+.configured-settings {
+  margin-top: 24px;
+}
+
+.success-banner {
+  margin: 28px 0 0;
+  padding: 16px 18px;
+  border-radius: 16px;
+  color: #17582a;
+  background: #dff2dd;
+}
+
 .health-shell {
   min-height: 100vh;
   display: grid;
@@ -118,6 +267,14 @@ h1 {
 }
 
 @media (max-width: 640px) {
+  .app-card-header {
+    flex-direction: column;
+  }
+
+  .settings-list {
+    grid-template-columns: 1fr;
+  }
+
   .health-heading {
     flex-direction: column;
   }

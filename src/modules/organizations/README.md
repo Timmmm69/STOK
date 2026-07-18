@@ -1,8 +1,9 @@
 # Organizations
 
-Reserved boundary for the future organization context and tenant isolation
-rules.
+Реализует первый безопасно повторяемый сценарий настройки одной организации и
+одного магазина «Лучок». База допускает несколько магазинов организации, но
+интерфейс управления сетью не реализован.
 
-No entities, services, persistence, authorization, or SaaS behavior are
-implemented here. Future consumers must use this module's explicit public API;
-deep imports and hidden cross-module dependencies are forbidden.
+Модуль владеет проверкой названия, правилами повтора и транзакционным созданием
+организации, членства владельца и магазина. Публичные типы и ошибки экспортируются
+из `index.ts`; прямой доступ к внутреннему репозиторию из других модулей запрещён.

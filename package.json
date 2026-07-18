@@ -17,7 +17,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --config vitest.config.ts",
-    "test:integration": "cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public prisma migrate reset --force && cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public prisma db seed && cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public vitest run --config vitest.integration.config.ts",
+    "test:integration": "cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public prisma migrate reset --force && cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public AUTH_ALLOWED_EMAIL=owner@example.com prisma db seed && cross-env DATABASE_URL=postgresql://stok:stok_test@localhost:55433/stok_test?schema=public AUTH_ALLOWED_EMAIL=owner@example.com vitest run --config vitest.integration.config.ts",
     "test:e2e": "playwright test",
     "db:up": "docker compose up -d --wait postgres postgres-test",
     "db:down": "docker compose down",
@@ -30,8 +30,10 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@better-auth/prisma-adapter": "1.6.23",
     "@prisma/adapter-pg": "7.8.0",
     "@prisma/client": "7.8.0",
+    "better-auth": "1.6.23",
     "dotenv": "17.4.2",
     "next": "16.2.10",
     "pg": "8.22.0",

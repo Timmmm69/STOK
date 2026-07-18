@@ -1,6 +1,6 @@
 # STOK agent map
 
-STOK is a specialized operating and management system for small stores with many unique physical items. The first vertical is one second-hand shop; the current repository implements only the engineering harness and `/health`.
+STOK is a specialized operating and management system for small stores with many unique physical items. The first store is «Лучок». The repository implements the engineering harness, invited-owner Google access and the organization/store setup; inventory and sales flows are not implemented.
 
 ## Read before changing
 
@@ -10,7 +10,7 @@ STOK is a specialized operating and management system for small stores with many
 - Architecture: `ARCHITECTURE.md` and `docs/architecture/`
 - Decisions: `docs/decisions/index.md`
 - Definition of Done: `docs/quality/DEFINITION_OF_DONE.md`
-- Local setup and testing: `docs/runbooks/LOCAL_SETUP.md`, `docs/runbooks/TESTING_LOCALLY.md`
+- Local setup and testing: `docs/runbooks/LOCAL_SETUP.md`, `docs/runbooks/GOOGLE_LOGIN_SETUP.md`, `docs/runbooks/TESTING_LOCALLY.md`
 
 For a non-trivial task, create/update an execution plan before implementation. Do not implement a feature without acceptance criteria or expand scope for hypothetical future use.
 

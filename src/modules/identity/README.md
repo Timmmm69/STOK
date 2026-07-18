@@ -1,8 +1,9 @@
 # Identity
 
-Reserved boundary for future identities, authentication context, and access
-control coordination.
+Реализует первый закрытый контур доступа: Google через Better Auth, серверную
+сессию и дополнительную проверку приглашённого адреса владельца.
 
-No users, authentication, authorization, or persistence are implemented here.
-Future consumers must use this module's explicit public API; deep imports and
-hidden cross-module dependencies are forbidden.
+Google подтверждает личность, но не выбирает организацию и не выдаёт бизнес-права.
+Рабочее приложение не содержит тестового обхода входа. Клиентский контракт находится
+в `client.ts`; серверная композиция подключает внутреннюю инфраструктуру. Другие
+модули не должны импортировать внутренние файлы напрямую.

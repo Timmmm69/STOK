@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import "./styles.css";
 
 export const metadata: Metadata = {
-  title: "STOK · Health",
-  description: "Техническое состояние инженерного контура STOK",
+  title: "STOK · Лучок",
+  description: "Учёт уникальных вещей магазина Лучок",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

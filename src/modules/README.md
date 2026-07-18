@@ -1,8 +1,8 @@
 # Module boundaries
 
-This directory reserves the top-level boundaries of the modular monolith. The
-directories are documentation-only placeholders; no product capability is
-implemented by them.
+This directory contains the top-level boundaries of the modular monolith.
+`identity` and `organizations` implement the first product slice; the remaining
+directories are documentation-only placeholders.
 
 When implementation begins, each module must expose an explicit public API.
 Consumers must not deep-import another module's internal files, reach into its

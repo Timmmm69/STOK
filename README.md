@@ -1,13 +1,15 @@
 # STOK
 
-STOK is an early-stage system for traceable intake and sale of unique items in small second-hand stores. This repository currently contains the Product Compass and a reproducible engineering harness only; store features are intentionally absent.
+STOK — система прослеживаемой приёмки и продажи уникальных вещей. Первая версия создаётся для секонд-хенда «Лучок», а границы организаций и магазинов рассчитаны на будущий подписной сервис без усложнения текущего интерфейса.
 
-## Start locally
+Сейчас реализованы техническая основа, защищённый вход приглашённого владельца, создание одной организации и одного магазина, PostgreSQL, проверки и страница `/health`. Товары, партии и продажи ещё не реализованы.
 
-1. Use Node.js 24.14.0, pnpm 11.9.0 and Docker Desktop.
-2. Copy `.env.example` to ignored `.env`.
-3. Run `pnpm install --frozen-lockfile`.
-4. Run `pnpm db:up`, `pnpm db:migrate`, then `pnpm db:seed`.
-5. Run `pnpm dev` and open `http://localhost:3000/health`.
+## Локальный запуск
 
-Full instructions: [LOCAL_SETUP.md](docs/runbooks/LOCAL_SETUP.md). Product direction: [PRODUCT_COMPASS.md](docs/product/PRODUCT_COMPASS.md). Architecture: [ARCHITECTURE.md](ARCHITECTURE.md).
+1. Используйте Node.js 24.14.0, pnpm 11.9.0 и Docker Desktop.
+2. Скопируйте `.env.example` в игнорируемый файл `.env` и заполните настройки Google по инструкции ниже.
+3. Выполните `pnpm install --frozen-lockfile`.
+4. Выполните `pnpm db:up`, `pnpm db:migrate`, затем `pnpm db:seed`.
+5. Выполните `pnpm dev` и откройте `http://localhost:3000/login`.
+
+Инструкции: [локальный запуск](docs/runbooks/LOCAL_SETUP.md), [вход через Google](docs/runbooks/GOOGLE_LOGIN_SETUP.md). Продукт: [Product Compass](docs/product/PRODUCT_COMPASS.md). Архитектура: [ARCHITECTURE.md](ARCHITECTURE.md).

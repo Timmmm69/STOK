@@ -21,6 +21,11 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       DATABASE_URL: testDatabaseUrl,
+      AUTH_ALLOWED_EMAIL: "owner@example.com",
+      BETTER_AUTH_SECRET: "playwright-only-secret-at-least-32-characters",
+      BETTER_AUTH_URL: "http://localhost:3100",
+      GOOGLE_CLIENT_ID: "playwright-google-client",
+      GOOGLE_CLIENT_SECRET: "playwright-google-secret",
       HEALTH_DB_TIMEOUT_MS: "1500",
       LOG_LEVEL: "info",
     },

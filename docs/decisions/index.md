@@ -9,5 +9,6 @@
 | [ADR-005](ADR-005-operation-history-and-corrections.md)           | accepted | Неизменяемые факты и компенсирующие операции         |
 | [ADR-006](ADR-006-testing-and-quality-gates.md)                   | accepted | Пирамида тестов и обязательные quality gates         |
 | [ADR-007](ADR-007-saas-ready-without-premature-generalization.md) | accepted | Подписная готовность без универсального конструктора |
+| [ADR-008](ADR-008-google-invite-only-authentication.md)           | accepted | Закрытый Google-вход приглашённого владельца         |
 
 ADR нужен до смены ключевого стека, формы поставки, владельца данных, транзакционной границы, политики истории/изоляции либо ослабления автоматической защиты. Новый ADR содержит контекст, решение, альтернативы, последствия, риски и условия пересмотра.

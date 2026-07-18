@@ -40,6 +40,7 @@ const requiredDocuments = [
   "docs/architecture/AI_BOUNDARIES.md",
   "docs/architecture/EVOLUTION_STRATEGY.md",
   "docs/runbooks/LOCAL_SETUP.md",
+  "docs/runbooks/GOOGLE_LOGIN_SETUP.md",
   "docs/runbooks/DATABASE_OPERATIONS.md",
   "docs/runbooks/DATABASE_RECOVERY.md",
   "docs/runbooks/TESTING_LOCALLY.md",

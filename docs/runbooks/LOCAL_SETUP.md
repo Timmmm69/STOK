@@ -10,6 +10,7 @@ Git 2.53.0, Node.js 24.14.0, pnpm 11.9.0, Docker 29.6.1 / Compose 5.3.0. Сов�
 
 ```powershell
 Copy-Item -LiteralPath .env.example -Destination .env
+# Заполните параметры входа по GOOGLE_LOGIN_SETUP.md.
 pnpm install --frozen-lockfile
 pnpm db:up
 pnpm db:migrate
@@ -17,9 +18,11 @@ pnpm db:seed
 pnpm dev
 ```
 
-Откройте `http://localhost:3000/health` и `http://localhost:3000/api/health`. При доступной БД endpoint отвечает `200`; остановленная БД даёт безопасный `503`.
+Откройте `http://localhost:3000/login`, `http://localhost:3000/health` и `http://localhost:3000/api/health`. При доступной БД endpoint отвечает `200`; остановленная БД даёт безопасный `503`. Без корректных ключей Google экран входа откроется, но Google не сможет вернуть пользователя в приложение.
 
 `.env` содержит только локальные значения, игнорируется Git и не переносится в production. Для другого порта измените одновременно Compose и локальную строку подключения.
+
+Настройка Google и разрешённого владельца описана в [GOOGLE_LOGIN_SETUP.md](GOOGLE_LOGIN_SETUP.md). Для production используются отдельные ключи, HTTPS и точный адрес будущего домена.
 
 ## Codex worktrees
 

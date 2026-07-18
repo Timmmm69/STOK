@@ -17,3 +17,9 @@ export const healthLogger: HealthLogger = {
     logger.warn(payload);
   },
 };
+
+export const applicationLogger = {
+  error(payload: Record<string, unknown>) {
+    logger.error(payload);
+  },
+};
