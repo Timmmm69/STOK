@@ -1,0 +1,39 @@
+name: stok
+
+services:
+  postgres:
+    image: postgres:18.4-alpine
+    environment:
+      POSTGRES_DB: stok
+      POSTGRES_USER: stok
+      POSTGRES_PASSWORD: stok_local
+    ports:
+      - "55432:5432"
+    volumes:
+      - stok_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stok -d stok"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  postgres-test:
+    image: postgres:18.4-alpine
+    environment:
+      POSTGRES_DB: stok_test
+      POSTGRES_USER: stok
+      POSTGRES_PASSWORD: stok_test
+    ports:
+      - "55433:5432"
+    tmpfs:
+      - /var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stok -d stok_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    restart: "no"
+
+volumes:
+  stok_postgres_data:

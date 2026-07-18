@@ -1,0 +1,9 @@
+nodeVersion: 24.14.0
+engineStrict: true
+
+allowBuilds:
+  "@prisma/engines": true
+  esbuild: true
+  prisma: true
+  sharp: true
+  unrs-resolver: true

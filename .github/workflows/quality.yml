@@ -1,0 +1,86 @@
+name: Quality
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: 24.14.0
+  PNPM_VERSION: 11.9.0
+  DATABASE_URL: postgresql://stok:stok_test@localhost:55433/stok_test?schema=public
+  TEST_DATABASE_URL: postgresql://stok:stok_test@localhost:55433/stok_test?schema=public
+  HEALTH_DB_TIMEOUT_MS: 1500
+  LOG_LEVEL: info
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.4-alpine
+        env:
+          POSTGRES_DB: stok_test
+          POSTGRES_USER: stok
+          POSTGRES_PASSWORD: stok_test
+        ports:
+          - 55433:5432
+        options: >-
+          --health-cmd "pg_isready -U stok -d stok_test"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm test:integration
+      - run: pnpm build
+
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.4-alpine
+        env:
+          POSTGRES_DB: stok_test
+          POSTGRES_USER: stok
+          POSTGRES_PASSWORD: stok_test
+        ports:
+          - 55433:5432
+        options: >-
+          --health-cmd "pg_isready -U stok -d stok_test"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:integration
+      - run: pnpm build
+      - run: pnpm test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-artifacts
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

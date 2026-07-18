@@ -1,0 +1,27 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# Generated code
+src/generated/prisma/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Editor and operating system
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo
+.idea/
+.vscode/
+
+# Local database artifacts
+*.db
+*.db-journal
