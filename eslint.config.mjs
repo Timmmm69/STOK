@@ -39,5 +39,6 @@ export default defineConfig([
     "playwright-report/**",
     "test-results/**",
     "src/generated/prisma/**",
+    "prototypes/**/dist/**",
   ]),
 ]);
