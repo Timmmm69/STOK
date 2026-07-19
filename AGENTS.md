@@ -4,6 +4,7 @@ STOK is a specialized operating and management system for small stores with many
 
 ## Read before changing
 
+- Current work: `docs/work/BOARD.md`, then `docs/work/HANDOFF.md`, then the primary work item and its execution plan
 - Product direction: `docs/product/PRODUCT_COMPASS.md`
 - Business rules: `docs/product/BUSINESS_RULES.md`
 - Active execution plans: `docs/exec-plans/active/`
@@ -13,6 +14,8 @@ STOK is a specialized operating and management system for small stores with many
 - Local setup and testing: `docs/runbooks/LOCAL_SETUP.md`, `docs/runbooks/GOOGLE_LOGIN_SETUP.md`, `docs/runbooks/TESTING_LOCALLY.md`
 
 For a non-trivial task, create/update an execution plan before implementation. Do not implement a feature without acceptance criteria or expand scope for hypothetical future use.
+
+At the end of every task or chat, update the work item, `docs/work/HANDOFF.md`, actual verification evidence and the Git commit. The repository is authoritative; GitHub is only a synchronized view. Only one work item may have `primary: true`.
 
 ## Required commands
 
